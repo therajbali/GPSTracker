@@ -34,7 +34,7 @@ public class GPSTracker {
                 double latitude = tpv.getLatitude();
                 double longitude = tpv.getLongitude();
                 double altitude = tpv.getAltitude();
-                double speed = tpv.getSpeed() * 3.6; // Convert m/s to km/h
+                double speed = tpv.getSpeed() * 3.6; // Convert m/s to km/h 
                 String time = tpv.getTime();
 
                 updateCoordinatesLabel(latitude, longitude);
