@@ -1,29 +1,39 @@
-import javax.swing.*;
+ import javax.swing.*;
 import org.gpsd.client.GpsdClient;
 import org.gpsd.client.GpsdClientListener;
 import org.gpsd.client.connector.GpsdConnection;
 import org.gpsd.client.message.TPVObject;
+import java.util.ArrayList;
+import java.util.List;
 
-public class GPSTracker {
+public class EnhancedGPSTracker {
     private static JLabel coordinatesLabel;
     private static JLabel altitudeLabel;
     private static JLabel speedLabel;
     private static JLabel timeLabel;
+    private static JLabel addressLabel;
+    private static List<TPVObject> gpsDataPoints = new ArrayList<>();
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame("GPS Tracker");
+        JFrame frame = new JFrame("Enhanced GPS Tracker");
         coordinatesLabel = new JLabel("Latitude: 0.000000, Longitude: 0.000000");
         altitudeLabel = new JLabel("Altitude: 0.0 meters");
         speedLabel = new JLabel("Speed: 0.0 km/h");
         timeLabel = new JLabel("Time: --:--:--");
-        
+        addressLabel = new JLabel("Address: Unknown");
+        JCheckBox trackRecordingCheckbox = new JCheckBox("Record Track");
+        JButton reverseGeolocationButton = new JButton("Get Address");
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLayout(new GridLayout(4, 1));
+        frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
         frame.add(coordinatesLabel);
         frame.add(altitudeLabel);
         frame.add(speedLabel);
         frame.add(timeLabel);
-        frame.setSize(400, 200);
+        frame.add(addressLabel);
+        frame.add(trackRecordingCheckbox);
+        frame.add(reverseGeolocationButton);
+        frame.setSize(400, 300);
         frame.setVisible(true);
 
         GpsdClient gpsdClient = new GpsdClient();
@@ -34,13 +44,25 @@ public class GPSTracker {
                 double latitude = tpv.getLatitude();
                 double longitude = tpv.getLongitude();
                 double altitude = tpv.getAltitude();
-                double speed = tpv.getSpeed() * 3.6; // Convert m/s to km/h 
+                double speed = tpv.getSpeed() * 3.6;
                 String time = tpv.getTime();
 
                 updateCoordinatesLabel(latitude, longitude);
                 updateAltitudeLabel(altitude);
                 updateSpeedLabel(speed);
                 updateTimeLabel(time);
+
+                if (trackRecordingCheckbox.isSelected()) {
+                    gpsDataPoints.add(tpv);
+                }
+            }
+        });
+
+        reverseGeolocationButton.addActionListener(e -> {
+            if (!gpsDataPoints.isEmpty()) {
+                TPVObject lastDataPoint = gpsDataPoints.get(gpsDataPoints.size() - 1);
+                String address = performReverseGeolocation(lastDataPoint.getLatitude(), lastDataPoint.getLongitude());
+                addressLabel.setText("Address: " + address);
             }
         });
 
@@ -72,7 +94,11 @@ public class GPSTracker {
         timeLabel.setText("Time: " + time);
     }
 
+    private static String performReverseGeolocation(double latitude, double longitude) {
+        // Implement reverse geolocation here
+        return "Sample Address"; // Replace with actual fetched address
+    }
+
     private static void showError(String message) {
         JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
     }
-}
