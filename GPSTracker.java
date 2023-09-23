@@ -1,18 +1,4 @@
-import javax.swing.*;
-import org.gpsd.client.GpsdClient;
-import org.gpsd.client.GpsdClientListener;
-import org.gpsd.client.connector.GpsdConnection;
-import org.gpsd.client.message.TPVObject;
-import java.util.ArrayList;
-import java.util.List;
 
-public class EnhancedGPSTracker {
-    private static JLabel coordinatesLabel;
-    private static JLabel altitudeLabel;
-    private static JLabel speedLabel;
-    private static JLabel timeLabel;
-    private static JLabel addressLabel;
-    private static List<TPVObject> gpsDataPoints = new ArrayList<>();
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Enhanced GPS Tracker");
