@@ -1,10 +1,3 @@
-import javax.swing.*;
-import org.gpsd.client.GpsdClient;
-import org.gpsd.client.GpsdClientListener;
-import org.gpsd.client.connector.GpsdConnection;
-import org.gpsd.client.message.TPVObject;
-import java.util.ArrayList;
-import java.util.List;
 
 public class EnhancedGPSTracker {
     private static JLabel coordinatesLabel;
