@@ -82,7 +82,7 @@ public class EnhancedGPSTracker {
 
     private static void updateAltitudeLabel(double altitude) {
         String altitudeText = String.format("Altitude: %.2f meters", altitude);
-        altitudeLabel.setText(altitudeText);
+        altitudeLabel.setText(altitudeText); 
     }
 
     private static void updateSpeedLabel(double speed) {
