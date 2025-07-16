@@ -10,7 +10,7 @@ public class EnhancedGPSTracker {
     private static JLabel coordinatesLabel;
     private static JLabel altitudeLabel;
     private static JLabel speedLabel;
-    private static JLabel timeLabel;
+    private static JLabel timeLabel; 
     private static JLabel addressLabel;
     private static List<TPVObject> gpsDataPoints = new ArrayList<>();
 
