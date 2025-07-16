@@ -5,7 +5,7 @@ import org.gpsd.client.connector.GpsdConnection;
 import org.gpsd.client.message.TPVObject;
 import java.util.ArrayList;
 import java.util.List;
-
+ 
 public class EnhancedGPSTracker {
     private static JLabel coordinatesLabel;
     private static JLabel altitudeLabel;
